@@ -13,8 +13,12 @@ public class quad :MonoBehaviour  {
             Vector3 pos = new Vector3((int)Random.Range(-4,4.9f), (int) Random.Range(-4,2.9f), 0);
             GameObject q = (GameObject) Instantiate(quad_prefab,pos,Quaternion.identity);
             quads.Add(q);
+            
+            
         }
-	}
+        var a = figure.get_figure_desc(1);
+        a.test();
+    }
 	
 	// Update is called once per frame
 	void Update () {
