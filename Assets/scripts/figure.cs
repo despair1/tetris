@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class figure  {
+public class figure
+{
 
-	public class figure_desc
+    public class figure_desc
     {
-        private  int[,] pos;
+        private int[,] pos;
         private int[,,] positions; // quad num/xy/rotation num
         private int rotation_num = 0;
         private readonly int down_offset;
@@ -30,13 +31,13 @@ public class figure  {
         int get_down_offset()
         {
             int result = pos[0, 1];
-            for (int i=0; i < pos.GetLength(0); i++)
+            for (int i = 0; i < pos.GetLength(0); i++)
             {
                 var a = pos[i, 1];
                 if (a < result) result = a;
             }
             //foreach ( int[] y in pos)
-            return result ;
+            return result;
         }
         int get_left_offset()
         {
@@ -51,18 +52,19 @@ public class figure  {
         }
         public void test()
         {
-            for ( int i = 0; i < pos.GetLength(0); i++)
+            for (int i = 0; i < pos.GetLength(0); i++)
             {
-                Debug.Log("y1 " + pos[i,1]);
+                Debug.Log("y1 " + pos[i, 1]);
             }
-            
+
         }
-        public int[,] get_pos() {
+        public int[,] get_pos()
+        {
             var result = new int[pos.GetLength(0), 2];
             for (int i = 0; i < pos.GetLength(0); i++)
             {
-                result[i,0]=positions[i, 0, rotation_num] ;
-                result[i,1]=positions[i, 1, rotation_num];
+                result[i, 0] = positions[i, 0, rotation_num];
+                result[i, 1] = positions[i, 1, rotation_num];
 
             }
             return result;
@@ -75,7 +77,7 @@ public class figure  {
         }
         private void set_rotation()
         {
-            
+
             for (int rot = 0; rot < 4; rot++)
             {
                 var result = new int[pos.GetLength(0), 2];
@@ -84,7 +86,7 @@ public class figure  {
                     result[i, 0] = -pos[i, 1];
                     result[i, 1] = pos[i, 0];
                 }
-                
+
                 for (int i = 0; i < pos.GetLength(0); i++)
                 {
                     positions[i, 0, rot] = pos[i, 0];
@@ -99,7 +101,7 @@ public class figure  {
     {
         //figure_desc a= new figure_desc();
 
-        if ( true)
+        if (true)
         {
             //a = new figure_desc[1];
             int[,] pos2 = new int[,] { { 0, 0 }, { 0, 1 }, { 0, 2 }, { 1, 0 } };
@@ -107,5 +109,9 @@ public class figure  {
             return a;
         }
         //return a;
+    }
+    public static int get_figure_num()
+    {
+        return 1;
     }
 }
