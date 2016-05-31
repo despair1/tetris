@@ -81,6 +81,10 @@ public class figure
             if (rotation_num < 0) rotation_num = 3;
             return get_pos();
         }
+        public int[] bounds()
+        {
+            return new int[] { 1, 1 };
+        }
         private void set_rotation()
         {
 

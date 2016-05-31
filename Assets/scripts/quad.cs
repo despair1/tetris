@@ -8,9 +8,9 @@ public class quad : MonoBehaviour
     private List<GameObject> quads = new List<GameObject>();
     private float time_between_shots=0.33f;
     private float timestep = 0;
-    int xpos = -8;
+    int xpos = 0;
     int ypos = 4;
-    const int xsize = 8;
+    const int xsize = 6;
     const int y_start_pos = 4;
     private  int num_figure = 1;
     private figure.figure_desc fig;
@@ -65,8 +65,25 @@ public class quad : MonoBehaviour
         int[,] b;
         if (dir > 0) b=fig.right() ;
             else b=fig.left();
-
-        for ( int i = 0; i < quads.Count; i++)
+        move_quads(b);
+        
+    }
+    void move(int dir) // 0 left
+    {
+        int[] b = fig.bounds();
+        if (dir > 0)
+        {
+            xpos++;
+        }
+        else xpos--;
+        if (xpos - b[0] < -xsize) xpos = -xsize + b[0];
+        if (xpos + b[1] > xsize) xpos = xsize - b[1];
+        move_quads(fig.get_pos());
+    }
+    void move_quads(int [,] quads_offsets)
+    {
+        var b = quads_offsets;
+        for (int i = 0; i < quads.Count; i++)
         {
             Vector3 pos = new Vector3(xpos + b[i, 0], ypos + b[i, 1], 0);
             quads[i].transform.position = pos;
@@ -86,6 +103,16 @@ public class quad : MonoBehaviour
             else if ( Input.GetButtonDown("rotate_right"))
             {
                 rotate(1);
+                timestep = Time.time + time_between_shots;
+            }
+            else if (Input.GetButtonDown("left_move"))
+            {
+                move(0);
+                timestep = Time.time + time_between_shots;
+            }
+            else if (Input.GetButtonDown("right_move"))
+            {
+                move(1);
                 timestep = Time.time + time_between_shots;
             }
         }
