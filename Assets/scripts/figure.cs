@@ -75,6 +75,12 @@ public class figure
             if (rotation_num >= 4) rotation_num = 0;
             return get_pos();
         }
+        public int[,] right()
+        {
+            rotation_num--;
+            if (rotation_num < 0) rotation_num = 3;
+            return get_pos();
+        }
         private void set_rotation()
         {
 

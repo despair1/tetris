@@ -62,7 +62,10 @@ public class quad : MonoBehaviour
     }
     void rotate(int dir) // 0 left
     {
-        var b = fig.left();
+        int[,] b;
+        if (dir > 0) b=fig.right() ;
+            else b=fig.left();
+
         for ( int i = 0; i < quads.Count; i++)
         {
             Vector3 pos = new Vector3(xpos + b[i, 0], ypos + b[i, 1], 0);
@@ -78,6 +81,11 @@ public class quad : MonoBehaviour
             if ( Input.GetButtonDown("rotate_left"))
             {
                 rotate(0);
+                timestep = Time.time + time_between_shots;
+            }
+            else if ( Input.GetButtonDown("rotate_right"))
+            {
+                rotate(1);
                 timestep = Time.time + time_between_shots;
             }
         }
