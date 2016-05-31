@@ -62,27 +62,29 @@ public class quad : MonoBehaviour
     }
     void rotate(int dir) // 0 left
     {
-        int[,] b;
-        if (dir > 0) b=fig.right() ;
-            else b=fig.left();
-        move_quads(b);
+        //int[,] b;
+        if (dir > 0) fig.right() ;
+            else fig.left();
+        move_quads();
         
     }
     void move(int dir) // 0 left
     {
-        int[] b = fig.bounds();
+        
         if (dir > 0)
         {
             xpos++;
         }
         else xpos--;
-        if (xpos - b[0] < -xsize) xpos = -xsize + b[0];
-        if (xpos + b[1] > xsize) xpos = xsize - b[1];
-        move_quads(fig.get_pos());
+        
+        move_quads();
     }
-    void move_quads(int [,] quads_offsets)
+    void move_quads()
     {
-        var b = quads_offsets;
+        int[] bo = fig.bounds();
+        var b = fig.get_pos();
+        if (xpos + bo[0] < -xsize) xpos = -xsize - bo[0];
+        if (xpos + bo[1] > xsize) xpos = xsize - bo[1];
         for (int i = 0; i < quads.Count; i++)
         {
             Vector3 pos = new Vector3(xpos + b[i, 0], ypos + b[i, 1], 0);
