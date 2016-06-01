@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using tetris_utils;
 
 public class quad : MonoBehaviour
 {
+    /*private class quad_links
+    {
+        GameObject go;
+        int xoffset;
+        int yoffset;
+    }*/
     public GameObject quad_prefab;
+    public ground ground_ref;
     private List<GameObject> quads = new List<GameObject>();
     private float time_between_shots=0.33f;
     private float timestep = 0;
@@ -14,39 +22,21 @@ public class quad : MonoBehaviour
     const int y_start_pos = 4;
     private  int num_figure = 1;
     private figure.figure_desc fig;
+    private float wait_time = 0.5f;
     // Use this for initialization
     void Start()
     {
-        /*for (int i = 0; i < 10; i++)
-        {
-            //Vector3 pos = new Vector3(i * 2 - 4, 2, 0);
-            Vector3 pos = new Vector3((int)Random.Range(-4,4.9f), (int) Random.Range(-4,2.9f), 0);
-            GameObject q = (GameObject) Instantiate(quad_prefab,pos,Quaternion.identity);
-            quads.Add(q);
-            
-            
-        }*/
         num_figure = figure.get_figure_num();
         inst_figure();
-        //fig = figure.get_figure_desc(0);
-        /*var b = a.get_pos();
-        for (int rot = 0; rot < 6; rot++)
+    }
+    IEnumerator move_down()
+    {
+        while (true)
         {
-
-
-            for (int i = 0; i < b.GetLength(0); i++)
-            {
-                Vector3 pos = new Vector3(xpos + b[i, 0] + rot * 5, ypos + b[i, 1], 0);
-                GameObject q = (GameObject)Instantiate(quad_prefab, pos, Quaternion.identity);
-                //quads.Add(q);
-            }
-            b = a.left();
-            //b = a.rotate_left();
-
+            yield return new WaitForSeconds(wait_time);
+            ypos--;
+            move_quads();
         }
-        //b[0, 1] = -4;
-        //a.test();
-        */
     }
 
     void inst_figure()
@@ -59,6 +49,7 @@ public class quad : MonoBehaviour
             GameObject q = (GameObject)Instantiate(quad_prefab, pos, Quaternion.identity);
             quads.Add(q);
         }
+        StartCoroutine(move_down());
     }
     void rotate(int dir) // 0 left
     {
@@ -90,6 +81,12 @@ public class quad : MonoBehaviour
             Vector3 pos = new Vector3(xpos + b[i, 0], ypos + b[i, 1], 0);
             quads[i].transform.position = pos;
         }
+    }
+
+    bool check_pos()
+    {
+        if (ypos <= -6) return false;
+        return true;
     }
 
     // Update is called once per frame
