@@ -9,7 +9,7 @@ public class ground : MonoBehaviour {
 	}
 	public bool check_contack_point(int[] cp)
     {
-        if (cp[1] < down_conner) return false;
+        if (cp[1] < down_conner) return true;
         return false;
     }
 	

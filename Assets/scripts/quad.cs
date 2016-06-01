@@ -18,6 +18,7 @@ public class quad : MonoBehaviour
     private float timestep = 0;
     int xpos = 0;
     int ypos = 4;
+    
     const int xsize = 6;
     const int y_start_pos = 4;
     private  int num_figure = 1;
@@ -49,7 +50,7 @@ public class quad : MonoBehaviour
             GameObject q = (GameObject)Instantiate(quad_prefab, pos, Quaternion.identity);
             quads.Add(q);
         }
-        StartCoroutine(move_down());
+        StartCoroutine("move_down");
     }
     void rotate(int dir) // 0 left
     {
@@ -81,6 +82,26 @@ public class quad : MonoBehaviour
             Vector3 pos = new Vector3(xpos + b[i, 0], ypos + b[i, 1], 0);
             quads[i].transform.position = pos;
         }
+        if (ypos < -5) StopCoroutine("move_down");
+        foreach(int[] i in fig.get_contact_points())
+        {
+            i[0] += xpos;
+            i[1] += ypos;
+            if (false)
+            //if (ground_ref.check_contack_point(i))
+            {
+                StopCoroutine("move_down");
+                quads.Clear();
+                ypos = y_start_pos;
+                inst_figure();
+                return;
+                //start_new_figure();
+            }
+        }
+    }
+    void start_new_figure()
+    {
+
     }
 
     bool check_pos()

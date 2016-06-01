@@ -22,6 +22,7 @@ namespace tetris_utils
                 collision_points = new List<int[]>[4];
                 set_rotation();
                 set_offset_nd_upper();
+                set_collision_points();
             }
             public List<int[]> get_contact_points()
             {

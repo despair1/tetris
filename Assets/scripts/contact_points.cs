@@ -7,6 +7,7 @@ namespace tetris_utils
         Dictionary<int, int> dick;
         public contact_points(int[,] pos)
         {
+            dick = new Dictionary<int, int>();
             for (int i = 0; i < pos.GetLength(0); i++)
             {
                 int x = pos[i, 0];
