@@ -82,13 +82,14 @@ public class quad : MonoBehaviour
             Vector3 pos = new Vector3(xpos + b[i, 0], ypos + b[i, 1], 0);
             quads[i].transform.position = pos;
         }
-        if (ypos < -5) StopCoroutine("move_down");
-        foreach(int[] i in fig.get_contact_points())
+        //if (ypos < -5) StopCoroutine("move_down");
+        foreach(int[] i1 in fig.get_contact_points())
         {
+            int[] i =(int[]) i1.Clone();
             i[0] += xpos;
             i[1] += ypos;
-            if (false)
-            //if (ground_ref.check_contack_point(i))
+            //if (false)
+            if (ground_ref.check_contack_point(i))
             {
                 StopCoroutine("move_down");
                 quads.Clear();
