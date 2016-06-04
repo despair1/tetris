@@ -9,7 +9,7 @@ public class ground : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         xsize = q1.xsize;
-        rows = new GameObject[xsize * 2, (-down_conner) * 2];
+        rows = new GameObject[xsize * 2+1, (-down_conner) * 2];
 	
 	}
 	public bool check_contack_point(int[] cp)
@@ -19,6 +19,7 @@ public class ground : MonoBehaviour {
         cp[1] = contact_point[1]-1;
         */
         if (cp[1] < down_conner) return true;
+        if (rows[cp[0]+xsize, cp[1]-down_conner]) return true;
         return false;
     }
 

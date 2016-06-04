@@ -99,7 +99,8 @@ public class quad : MonoBehaviour
             if (ground_ref.check_contack_point(i))
             {
                 StopCoroutine("move_down");
-                quads.Clear();
+                ground_ref.figure2ground(fig.get_pos(), xpos, ypos, quads);
+                //quads.Clear();
                 ypos = y_start_pos;
                 inst_figure();
                 return;
