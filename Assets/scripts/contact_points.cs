@@ -31,7 +31,7 @@ namespace tetris_utils
             {
                 int[] v = new int[2];
                 v[0] = pair.Key;
-                v[1] = pair.Value;
+                v[1] = pair.Value-1;
                 result.Add(v);
             }
             return result;

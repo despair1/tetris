@@ -14,17 +14,23 @@ public class quad : MonoBehaviour
     public GameObject quad_prefab;
     public ground ground_ref;
     private List<GameObject> quads = new List<GameObject>();
-    private float time_between_shots=0.33f;
+    private float time_between_shots=0.2f;
     private float timestep = 0;
     int xpos = 0;
     int ypos = 4;
     
-    const int xsize = 6;
+    public readonly int xsize = 6;
     const int y_start_pos = 4;
     private  int num_figure = 1;
     private figure.figure_desc fig;
     private float wait_time = 0.5f;
+    const float init_wait_time = 0.5f;
+    const float drop_wait_time = 0.05f;
     // Use this for initialization
+    public quad()
+    {
+        //xsize = 6;
+    }
     void Start()
     {
         num_figure = figure.get_figure_num();
@@ -50,6 +56,7 @@ public class quad : MonoBehaviour
             GameObject q = (GameObject)Instantiate(quad_prefab, pos, Quaternion.identity);
             quads.Add(q);
         }
+        wait_time = init_wait_time;
         StartCoroutine("move_down");
     }
     void rotate(int dir) // 0 left
@@ -116,12 +123,12 @@ public class quad : MonoBehaviour
     {
         if ( Time.time>timestep)
         {
-            if ( Input.GetButtonDown("rotate_left"))
+            if (Input.GetButtonDown("rotate_left"))
             {
                 rotate(0);
                 timestep = Time.time + time_between_shots;
             }
-            else if ( Input.GetButtonDown("rotate_right"))
+            else if (Input.GetButtonDown("rotate_right"))
             {
                 rotate(1);
                 timestep = Time.time + time_between_shots;
@@ -135,6 +142,10 @@ public class quad : MonoBehaviour
             {
                 move(1);
                 timestep = Time.time + time_between_shots;
+            }
+            else if (Input.GetButtonDown("drop"))
+            {
+                wait_time = drop_wait_time;
             }
         }
 
